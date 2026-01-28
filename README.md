@@ -2,6 +2,8 @@
 
 A visual, drag-and-drop garden planning tool built with React and Konva. Design your perfect garden layout with customizable beds, vegetables, and labels.
 
+View Here: https://my-garden-planner-rho.vercel.app/
+
 ![Garden Planner Screenshot](https://vanessawithun.com/wp-content/uploads/2026/01/Garden-App-Screenshot.png)
 <!-- Add your screenshot here -->
 
