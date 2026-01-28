@@ -551,181 +551,181 @@ const veggieDatabase = {
   }, [selectedId, copiedItem]);
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-80 bg-white p-4 shadow-lg overflow-y-auto">
-        <h1 className="text-2xl font-bold mb-4 text-green-700">Garden Planner</h1>
+   <div className="flex h-screen bg-gray-800">
+  {/* Sidebar */}
+  <div className="w-80 bg-gray-100 p-4 shadow-lg overflow-y-auto">
+    <h1 className="text-2xl font-bold mb-4 text-black">Garden Planner</h1>
 
-        <div className="space-y-4">
-          {/* Canvas Size Presets */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Canvas Size</label>
-            <div className="grid grid-cols-2 gap-2">
-              {presetSizes.map((preset) => (
-                <button
-                  key={preset.name}
-                  onClick={() => {
-                    setCanvasWidth(preset.width);
-                    setCanvasHeight(preset.height);
-                  }}
-                  className={`px-3 py-2 rounded text-sm transition ${
-                    canvasWidth === preset.width && canvasHeight === preset.height
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-gray-500 hover:bg-gray-600 text-white'
-                  }`}
-                >
-                  {preset.name}
-                  <div className="text-xs opacity-80">{preset.width}×{preset.height}</div>
-                </button>
-              ))}
-            </div>
-            <p className="text-xs text-gray-500 mt-2">Current: {canvasWidth}×{canvasHeight}px</p>
-          </div>
-
-          {/* Color Picker */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Bed Color</label>
-            <div className="flex gap-2 items-center">
-              <button
-                onClick={() => setShowColorPicker(!showColorPicker)}
-                className="w-12 h-12 rounded border-2 border-gray-300 cursor-pointer hover:border-gray-400"
-                style={{ backgroundColor: currentColor }}
-                aria-label="Pick color"
-              />
-              <span className="text-sm text-gray-600">{currentColor}</span>
-            </div>
-            {showColorPicker && (
-              <div className="mt-2">
-                <SketchPicker
-                  color={currentColor}
-                  onChange={(color) => setCurrentColor(color.hex)}
-                />
-              </div>
-            )}
-          </div>
-
-          {/* Shape Buttons */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Add Bed Shape</label>
-            <div className="grid grid-cols-2 gap-2">
-              <button onClick={() => addShape('rectangle')} className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm transition">Rectangle</button>
-              <button onClick={() => addShape('square')} className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm transition">Square</button>
-              <button onClick={() => addShape('circle')} className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm transition">Circle</button>
-              <button onClick={() => addShape('oval')} className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm transition">Oval</button>
-              <button onClick={() => addShape('rounded-rect')} className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm transition col-span-2">Rounded Rectangle</button>
-            </div>
-          </div>
-
-          {/* Veggie Picker */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Add Vegetables</label>
+    <div className="space-y-4">
+      {/* Canvas Size Presets */}
+      <div>
+        <label className="block text-sm font-medium mb-2 text-black">Canvas Size</label>
+        <div className="grid grid-cols-2 gap-2">
+          {presetSizes.map((preset) => (
             <button
-              onClick={() => setShowVeggiePicker(!showVeggiePicker)}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full transition"
+              key={preset.name}
+              onClick={() => {
+                setCanvasWidth(preset.width);
+                setCanvasHeight(preset.height);
+              }}
+              className={`px-3 py-2 rounded text-sm transition ${
+                canvasWidth === preset.width && canvasHeight === preset.height
+                  ? 'bg-indigo-600 text-white'
+                  : 'bg-gray-500 hover:bg-gray-600 text-white'
+              }`}
             >
-              {showVeggiePicker ? 'Close Veggie Picker' : 'Select Veggies'}
+              {preset.name}
+              <div className="text-xs opacity-80">{preset.width}×{preset.height}</div>
             </button>
+          ))}
+        </div>
+        <p className="text-xs text-black mt-2">Current: {canvasWidth}×{canvasHeight}px</p>
+      </div>
 
-            {showVeggiePicker && (
-              <div className="mt-3 space-y-2 max-h-60 overflow-y-auto">
-                {!selectedCategory && (
-                  <div className="space-y-1">
-                    <p className="text-xs text-gray-500 mb-2">Choose a category:</p>
-                    {Object.keys(veggieDatabase).map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => setSelectedCategory(category)}
-                        className="w-full text-left px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm"
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {selectedCategory && (
-                  <div className="space-y-1">
-                    <button
-                      onClick={() => setSelectedCategory(null)}
-                      className="text-xs text-blue-600 hover:underline mb-2"
-                    >
-                      ← Back to categories
-                    </button>
-                    {veggieDatabase[selectedCategory].map((veggie) => (
-                      <button
-                        key={veggie.name}
-                        onClick={() => addVeggie(veggie.name, veggie.icon)}
-                        className="w-full flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm"
-                      >
-                        <img src={veggie.icon} alt={veggie.name} className="w-6 h-6" />
-                        <span>{veggie.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+      {/* Color Picker */}
+      <div>
+        <label className="block text-sm font-medium mb-2 text-black">Bed Color</label>
+        <div className="flex gap-2 items-center">
+          <button
+            onClick={() => setShowColorPicker(!showColorPicker)}
+            className="w-12 h-12 rounded border-2 border-gray-300 cursor-pointer hover:border-gray-400"
+            style={{ backgroundColor: currentColor }}
+            aria-label="Pick color"
+          />
+          <span className="text-sm text-black">{currentColor}</span>
+        </div>
+        {showColorPicker && (
+          <div className="mt-2">
+            <SketchPicker
+              color={currentColor}
+              onChange={(color) => setCurrentColor(color.hex)}
+            />
           </div>
+        )}
+      </div>
 
-          {/* Add Text Label Button */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Add Text Label</label>
-            <button
-              onClick={addLabel}
-              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded w-full transition"
-            >
-              + Add Text Label
-            </button>
-            <p className="text-xs text-gray-500 mt-1">Double-click label to edit</p>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="space-y-2">
-            {selectedId && (
-              <>
-                <button
-                  onClick={handleCopy}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full transition"
-                >
-                  📋 Copy (Ctrl+C)
-                </button>
-                
-                <button
-                  onClick={handleDelete}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded w-full transition"
-                >
-                  🗑️ Delete (Del)
-                </button>
-              </>
-            )}
-
-            {copiedItem && (
-              <button
-                onClick={handlePaste}
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full transition"
-              >
-                📄 Paste (Ctrl+V)
-              </button>
-            )}
-          </div>
-
-          {/* Export PDF */}
-          <div className="pt-4 border-t">
-            <button
-              onClick={exportToPDF}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
-            >
-              📄 Save as PDF
-            </button>
-          </div>
-
-          <div className="pt-4 border-t">
-            <p className="text-sm text-gray-600">Beds: {shapes.length}</p>
-            <p className="text-sm text-gray-600">Plants: {veggies.length}</p>
-            <p className="text-sm text-gray-600">Labels: {labels.length}</p>
-          </div>
+      {/* Shape Buttons */}
+      <div>
+        <label className="block text-sm font-medium mb-2 text-black">Add Bed Shape</label>
+        <div className="grid grid-cols-2 gap-2">
+          <button onClick={() => addShape('rectangle')} className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm transition">Rectangle</button>
+          <button onClick={() => addShape('square')} className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm transition">Square</button>
+          <button onClick={() => addShape('circle')} className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm transition">Circle</button>
+          <button onClick={() => addShape('oval')} className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm transition">Oval</button>
+          <button onClick={() => addShape('rounded-rect')} className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm transition col-span-2">Rounded Rectangle</button>
         </div>
       </div>
+
+      {/* Veggie Picker */}
+      <div>
+        <label className="block text-sm font-medium mb-2 text-black">Add Vegetables</label>
+        <button
+          onClick={() => setShowVeggiePicker(!showVeggiePicker)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full transition"
+        >
+          {showVeggiePicker ? 'Close Veggie Picker' : 'Select Veggies'}
+        </button>
+
+        {showVeggiePicker && (
+          <div className="mt-3 space-y-2 max-h-60 overflow-y-auto">
+            {!selectedCategory && (
+              <div className="space-y-1">
+                <p className="text-xs text-black mb-2">Choose a category:</p>
+                {Object.keys(veggieDatabase).map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className="w-full text-left px-3 py-2 bg-white hover:bg-gray-200 rounded text-sm text-black"
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {selectedCategory && (
+              <div className="space-y-1">
+                <button
+                  onClick={() => setSelectedCategory(null)}
+                  className="text-xs text-blue-600 hover:underline mb-2"
+                >
+                  ← Back to categories
+                </button>
+                {veggieDatabase[selectedCategory].map((veggie) => (
+                  <button
+                    key={veggie.name}
+                    onClick={() => addVeggie(veggie.name, veggie.icon)}
+                    className="w-full flex items-center gap-2 px-3 py-2 bg-white hover:bg-gray-200 rounded text-sm text-black"
+                  >
+                    <img src={veggie.icon} alt={veggie.name} className="w-6 h-6" />
+                    <span>{veggie.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Add Text Label Button */}
+      <div>
+        <label className="block text-sm font-medium mb-2 text-black">Add Text Label</label>
+        <button
+          onClick={addLabel}
+          className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded w-full transition"
+        >
+          + Add Text Label
+        </button>
+        <p className="text-xs text-black mt-1">Double-click label to edit</p>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="space-y-2">
+        {selectedId && (
+          <>
+            <button
+              onClick={handleCopy}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full transition"
+            >
+              📋 Copy (Ctrl+C)
+            </button>
+            
+            <button
+              onClick={handleDelete}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded w-full transition"
+            >
+              🗑️ Delete (Del)
+            </button>
+          </>
+        )}
+
+        {copiedItem && (
+          <button
+            onClick={handlePaste}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full transition"
+          >
+            📄 Paste (Ctrl+V)
+          </button>
+        )}
+      </div>
+
+      {/* Export PDF */}
+      <div className="pt-4 border-t">
+        <button
+          onClick={exportToPDF}
+          className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+        >
+          📄 Save as PDF
+        </button>
+      </div>
+
+      <div className="pt-4 border-t">
+        <p className="text-sm text-black">Beds: {shapes.length}</p>
+        <p className="text-sm text-black">Plants: {veggies.length}</p>
+        <p className="text-sm text-black">Labels: {labels.length}</p>
+      </div>
+    </div>
+  </div>
 
       {/* Canvas Area */}
       <div className="flex-1 p-8 overflow-auto">
