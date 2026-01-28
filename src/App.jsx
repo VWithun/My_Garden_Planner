@@ -534,7 +534,7 @@ function App() {
   }, [selectedId, copiedItem]);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-800">
       {/* Sidebar */}
       <div className="w-80 bg-gray-100 p-4 shadow-lg overflow-y-auto">
         <h1 className="text-2xl font-bold mb-4 text-black">Garden Planner</h1>
